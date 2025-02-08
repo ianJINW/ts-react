@@ -1,0 +1,72 @@
+{
+	"name": "server",
+	"version": "1.0.0",
+	"description": "",
+	"keywords": [
+		"Njenga",
+		"Ian",
+		"Wandaka",
+		"ianJINW",
+		"React",
+		"Typescript",
+		"Sequelize",
+		"Express",
+		"PostgreSQL"
+	],
+	"homepage": "https://github.com/ianJINW/full-stack-react-typescript#readme",
+	"bugs": {
+		"url": "https://github.com/ianJINW/full-stack-react-typescript/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/ianJINW/full-stack-react-typescript.git"
+	},
+	"license": "MIT",
+	"author": "Njenga Ian Wandaka (ianJINW)",
+	"type": "commonjs",
+	"main": "index.ts",
+	"scripts": {
+		"test": "jest",
+		"dev": "nodemon",
+		"start": "nodemon"
+	},
+	"dependencies": {
+		"@types/bcrypt": "^5.0.2",
+		"bcrypt": "^5.1.1",
+		"bcryptjs": "^2.4.3",
+		"body-parser": "^1.20.3",
+		"cors": "^2.8.5",
+		"express": "^4.21.2",
+		"express-session": "^1.18.1",
+		"jsonwebtoken": "^9.0.2",
+		"multer": "^1.4.5-lts.1",
+		"passport": "^0.7.0",
+		"passport-jwt": "^4.0.1",
+		"passport-local": "^1.0.0",
+		"pg": "^8.13.1",
+		"sequelize": "^6.37.5",
+		"sequelize-cli": "^6.6.2",
+		"sequelize-typescript": "^2.1.6",
+		"zod": "^3.24.1"
+	},
+	"devDependencies": {
+		"@prisma/client": "^6.3.1",
+		"@types/bcryptjs": "^2.4.6",
+		"@types/body-parser": "^1.19.5",
+		"@types/cors": "^2.8.17",
+		"@types/express": "^5.0.0",
+		"@types/express-session": "^1.18.1",
+		"@types/jest": "^29.5.14",
+		"@types/multer": "^1.4.12",
+		"@types/node": "^22.12.0",
+		"@types/passport": "^1.0.17",
+		"@types/passport-local": "^1.0.38",
+		"dotenv": "^16.4.7",
+		"jest": "^29.7.0",
+		"nodemon": "^3.1.9",
+		"prisma": "^6.3.1",
+		"ts-jest": "^29.2.5",
+		"ts-node": "^10.9.2",
+		"typescript": "^5.7.3"
+	}
+}
