@@ -43,21 +43,51 @@ export const getUserById = async (req: Request, res: Response) => {
 
 // Create a new user
 export const createUser = async (req: Request, res: Response) => {
-	const { email, username, password } = req.body;
-	console.log(req.body);
-	const image = req.file?.path;
-
 	try {
-		const hash = await bcrypt.hash(password, 10);
+		const { email, username, password } = req.body;
+		const image = req.file?.path || null;
+
+		console.log(req.body);
+
+		// Validate required fields
+		if (!email || !username || !password) {
+			res.status(400).json({
+				error: "Email, username, and password are required",
+			});
+			return;
+		}
+
+		// Check if user already exists
+		const existingUser = await prisma.user.findFirst({
+			where: {
+				OR: [{ email }, { username }],
+			},
+		});
+
+		if (existingUser) {
+			res.status(400).json({
+				error: "User with this email or username already exists",
+			});
+			return;
+		}
+
+		// Hash password
+		const hashedPassword = await bcrypt.hash(password, 10);
+
+		// Create new user
 		const newUser = await prisma.user.create({
 			data: {
 				email,
 				username,
-				password: hash,
-				image,
+				password: hashedPassword,
+				image: image || null,
 			},
 		});
-		res.status(201).json({ message: "User successfully created" });
+
+		// Remove password from response
+		const { password: _, ...userWithoutPassword } = newUser;
+
+		res.status(201).json(userWithoutPassword);
 	} catch (error) {
 		console.error("Error creating user:", error);
 		res.status(500).json({ error: "Failed to create user" });

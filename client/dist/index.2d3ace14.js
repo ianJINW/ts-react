@@ -26363,7 +26363,7 @@ var _reactQuery = require("@tanstack/react-query");
 var _axios = require("axios");
 var _axiosDefault = parcelHelpers.interopDefault(_axios);
 var _url = require("./url");
-var _reactRouter = require("react-router");
+var _reactRouterDom = require("react-router-dom"); // Changed to react-router-dom for DOM apps
 var _useAuth = require("../useAuth");
 const fetchData = async (url)=>{
     try {
@@ -26372,7 +26372,8 @@ const fetchData = async (url)=>{
         });
         return response.data;
     } catch (error) {
-        if (error instanceof (0, _axios.AxiosError) && error.response?.status === 404) return null;
+        // Use axios.isAxiosError to check error type
+        if ((0, _axiosDefault.default).isAxiosError(error) && error.response?.status === 404) return null;
         throw error;
     }
 };
@@ -26394,23 +26395,20 @@ const register = async (userData)=>{
                 "Content-Type": "multipart/form-data"
             }
         });
-        console.log(userData);
         return data;
     } catch (error) {
-        throw error instanceof (0, _axios.AxiosError) ? new Error(error.response?.data?.error || "Registration failed") : error;
+        // Use axios.isAxiosError for safety
+        throw (0, _axiosDefault.default).isAxiosError(error) ? new Error(error.response?.data?.error || "Registration failed") : error;
     }
 };
 const loginUser = async (userData)=>{
     try {
         const { data } = await (0, _axiosDefault.default).post((0, _url.getApuUrl)("/login"), userData, {
-            withCredentials: true,
-            headers: {
-                "Content-Type": "application/json"
-            }
+            withCredentials: true
         });
         return data;
     } catch (error) {
-        throw error instanceof (0, _axios.AxiosError) ? new Error(error.response?.data?.error || "Login failed") : error;
+        throw (0, _axiosDefault.default).isAxiosError(error) ? new Error(error.response?.data?.error || "Login failed") : error;
     }
 };
 const logout = async ()=>{
@@ -26420,11 +26418,11 @@ const logout = async ()=>{
         });
         return data;
     } catch (error) {
-        throw error instanceof (0, _axios.AxiosError) ? new Error(error.response?.data?.error || "Logout unsuccessful") : error;
+        throw (0, _axiosDefault.default).isAxiosError(error) ? new Error(error.response?.data?.error || "Logout unsuccessful") : error;
     }
 };
 const useLogoutMutation = ()=>{
-    const navigate = (0, _reactRouter.useNavigate)();
+    const navigate = (0, _reactRouterDom.useNavigate)();
     const { logout: logoutContext } = (0, _useAuth.useAuth)();
     const queryClient = (0, _reactQuery.useQueryClient)();
     return (0, _reactQuery.useMutation)({
@@ -26441,7 +26439,7 @@ const useLogoutMutation = ()=>{
     });
 };
 const useRegisterMutation = ()=>{
-    const navigate = (0, _reactRouter.useNavigate)();
+    const navigate = (0, _reactRouterDom.useNavigate)();
     return (0, _reactQuery.useMutation)({
         mutationFn: register,
         onSuccess: ()=>{
@@ -26454,7 +26452,7 @@ const useRegisterMutation = ()=>{
     });
 };
 const useLoginMutation = ()=>{
-    const navigate = (0, _reactRouter.useNavigate)();
+    const navigate = (0, _reactRouterDom.useNavigate)();
     const { login } = (0, _useAuth.useAuth)();
     return (0, _reactQuery.useMutation)({
         mutationFn: loginUser,
@@ -26468,7 +26466,7 @@ const useLoginMutation = ()=>{
     });
 };
 
-},{"@tanstack/react-query":"aWjl8","axios":"jo6P5","./url":"hGb07","react-router":"dbWyW","../useAuth":"cZDkJ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"aWjl8":[function(require,module,exports,__globalThis) {
+},{"@tanstack/react-query":"aWjl8","axios":"jo6P5","./url":"hGb07","react-router-dom":"9xmpe","../useAuth":"cZDkJ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"aWjl8":[function(require,module,exports,__globalThis) {
 // src/index.ts
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
@@ -34465,7 +34463,7 @@ $RefreshReg$(_c, "Home");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","../useAuth":"cZDkJ"}],"fEOIc":[function(require,module,exports,__globalThis) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../useAuth":"cZDkJ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"fEOIc":[function(require,module,exports,__globalThis) {
 var $parcel$ReactRefreshHelpers$d133 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -34933,12 +34931,15 @@ var _query = require("../utils/query");
 var _s = $RefreshSig$();
 const Register = ()=>{
     _s();
+    // Local state for form fields and image preview
     const [email, setEmail] = (0, _react.useState)("");
     const [username, setUsername] = (0, _react.useState)("");
     const [password, setPassword] = (0, _react.useState)("");
     const [profile, setProfileImage] = (0, _react.useState)(null);
     const [imagePreview, setImagePreview] = (0, _react.useState)(null);
-    const registerMutation = (0, _query.useRegisterMutation)();
+    // Destructure mutation properties from your custom hook
+    const { mutate, isPending, isError, error } = (0, _query.useRegisterMutation)();
+    // Handle file input change: read the file and set preview
     const handleImageChange = (e)=>{
         const file = e.target.files?.[0];
         if (file) {
@@ -34950,6 +34951,7 @@ const Register = ()=>{
             reader.readAsDataURL(file);
         }
     };
+    // Handle form submission: build FormData and trigger mutation
     const handleSubmit = (e)=>{
         e.preventDefault();
         const formData = new FormData();
@@ -34957,8 +34959,7 @@ const Register = ()=>{
         formData.append("username", username);
         formData.append("password", password);
         if (profile) formData.append("image", profile);
-        console.log("FormData:", formData);
-        registerMutation.mutate(formData);
+        mutate(formData);
     };
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: [
@@ -34966,7 +34967,7 @@ const Register = ()=>{
                 children: "Register"
             }, void 0, false, {
                 fileName: "src/pages/Register.tsx",
-                lineNumber: 42,
+                lineNumber: 43,
                 columnNumber: 4
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("form", {
@@ -34979,7 +34980,7 @@ const Register = ()=>{
                                 children: "Email:"
                             }, void 0, false, {
                                 fileName: "src/pages/Register.tsx",
-                                lineNumber: 45,
+                                lineNumber: 46,
                                 columnNumber: 6
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
@@ -34989,13 +34990,13 @@ const Register = ()=>{
                                 required: true
                             }, void 0, false, {
                                 fileName: "src/pages/Register.tsx",
-                                lineNumber: 46,
+                                lineNumber: 47,
                                 columnNumber: 6
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/pages/Register.tsx",
-                        lineNumber: 44,
+                        lineNumber: 45,
                         columnNumber: 5
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -35004,7 +35005,7 @@ const Register = ()=>{
                                 children: "Username:"
                             }, void 0, false, {
                                 fileName: "src/pages/Register.tsx",
-                                lineNumber: 54,
+                                lineNumber: 55,
                                 columnNumber: 6
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
@@ -35014,13 +35015,13 @@ const Register = ()=>{
                                 required: true
                             }, void 0, false, {
                                 fileName: "src/pages/Register.tsx",
-                                lineNumber: 55,
+                                lineNumber: 56,
                                 columnNumber: 6
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/pages/Register.tsx",
-                        lineNumber: 53,
+                        lineNumber: 54,
                         columnNumber: 5
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -35029,7 +35030,7 @@ const Register = ()=>{
                                 children: "Password:"
                             }, void 0, false, {
                                 fileName: "src/pages/Register.tsx",
-                                lineNumber: 63,
+                                lineNumber: 64,
                                 columnNumber: 6
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
@@ -35039,13 +35040,13 @@ const Register = ()=>{
                                 required: true
                             }, void 0, false, {
                                 fileName: "src/pages/Register.tsx",
-                                lineNumber: 64,
+                                lineNumber: 65,
                                 columnNumber: 6
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/pages/Register.tsx",
-                        lineNumber: 62,
+                        lineNumber: 63,
                         columnNumber: 5
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -35054,7 +35055,7 @@ const Register = ()=>{
                                 children: "Profile Image:"
                             }, void 0, false, {
                                 fileName: "src/pages/Register.tsx",
-                                lineNumber: 72,
+                                lineNumber: 73,
                                 columnNumber: 6
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
@@ -35064,13 +35065,13 @@ const Register = ()=>{
                                 onChange: handleImageChange
                             }, void 0, false, {
                                 fileName: "src/pages/Register.tsx",
-                                lineNumber: 73,
+                                lineNumber: 74,
                                 columnNumber: 6
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/pages/Register.tsx",
-                        lineNumber: 71,
+                        lineNumber: 72,
                         columnNumber: 5
                     }, undefined),
                     imagePreview && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -35083,44 +35084,44 @@ const Register = ()=>{
                             }
                         }, void 0, false, {
                             fileName: "src/pages/Register.tsx",
-                            lineNumber: 82,
+                            lineNumber: 83,
                             columnNumber: 7
                         }, undefined)
                     }, void 0, false, {
                         fileName: "src/pages/Register.tsx",
-                        lineNumber: 81,
+                        lineNumber: 82,
                         columnNumber: 6
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
                         type: "submit",
-                        disabled: registerMutation.isPending,
-                        children: registerMutation.isPending ? "Registering..." : "Register"
+                        disabled: isPending,
+                        children: isPending ? "Registering..." : "Register"
                     }, void 0, false, {
                         fileName: "src/pages/Register.tsx",
-                        lineNumber: 89,
+                        lineNumber: 90,
                         columnNumber: 5
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/pages/Register.tsx",
-                lineNumber: 43,
+                lineNumber: 44,
                 columnNumber: 4
             }, undefined),
-            registerMutation.isError && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                children: registerMutation.error instanceof Error && registerMutation.error.message
+            isError && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                children: error?.message || "Registration failed"
             }, void 0, false, {
                 fileName: "src/pages/Register.tsx",
                 lineNumber: 94,
-                columnNumber: 5
+                columnNumber: 16
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/pages/Register.tsx",
-        lineNumber: 41,
+        lineNumber: 42,
         columnNumber: 3
     }, undefined);
 };
-_s(Register, "iYuZilFlRd8+FQcUgHfavsTdYYo=", false, function() {
+_s(Register, "QxZ3oWPukOW+PMM6bEyyvuaj7DE=", false, function() {
     return [
         (0, _query.useRegisterMutation)
     ];

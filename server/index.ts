@@ -8,6 +8,7 @@ import cookieParser from "cookie-parser";
 import "./config/passport";
 import passport from "./config/passport";
 import { createUser, login } from "./controllers/userController";
+import { upload } from "./middleware/multer";
 
 dotenv.config();
 const app = express();
@@ -30,7 +31,7 @@ app.use("/uploads", express.static("uploads"));
 app.use("/api", passport.authenticate("jwt", { session: false }));
 
 app.post("/login", login);
-app.post("/register", createUser);
+app.post("/register", upload.single("profile"), createUser);
 app.use("/api/users", userRouter);
 app.use("/api/posts", postRouter);
 app.use("/api/comments", commentRouter);

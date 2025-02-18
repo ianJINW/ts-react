@@ -2,14 +2,17 @@ import React, { useState } from "react";
 import { useRegisterMutation } from "../utils/query";
 
 const Register: React.FC = () => {
+	// Local state for form fields and image preview
 	const [email, setEmail] = useState("");
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [profile, setProfileImage] = useState<File | null>(null);
 	const [imagePreview, setImagePreview] = useState<string | null>(null);
 
-	const registerMutation = useRegisterMutation();
+	// Destructure mutation properties from your custom hook
+	const { mutate, isPending, isError, error } = useRegisterMutation();
 
+	// Handle file input change: read the file and set preview
 	const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0];
 		if (file) {
@@ -22,9 +25,9 @@ const Register: React.FC = () => {
 		}
 	};
 
+	// Handle form submission: build FormData and trigger mutation
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
-
 		const formData = new FormData();
 		formData.append("email", email);
 		formData.append("username", username);
@@ -32,9 +35,7 @@ const Register: React.FC = () => {
 		if (profile) {
 			formData.append("image", profile);
 		}
-
-		console.log("FormData:", formData);
-		registerMutation.mutate(formData);
+		mutate(formData);
 	};
 
 	return (
@@ -86,16 +87,11 @@ const Register: React.FC = () => {
 						/>
 					</div>
 				)}
-				<button type="submit" disabled={registerMutation.isPending}>
-					{registerMutation.isPending ? "Registering..." : "Register"}
+				<button type="submit" disabled={isPending}>
+					{isPending ? "Registering..." : "Register"}
 				</button>
 			</form>
-			{registerMutation.isError && (
-				<p>
-					{registerMutation.error instanceof Error &&
-						registerMutation.error.message}
-				</p>
-			)}
+			{isError && <p>{(error as Error)?.message || "Registration failed"}</p>}
 		</div>
 	);
 };

@@ -6,7 +6,7 @@ import {
 } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import { getApuUrl } from "./url";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom"; // Changed to react-router-dom for DOM apps
 import { useAuth } from "../useAuth";
 
 interface User {
@@ -41,7 +41,8 @@ const fetchData = async (url: string): Promise<any> => {
 		});
 		return response.data;
 	} catch (error) {
-		if (error instanceof AxiosError && error.response?.status === 404) {
+		// Use axios.isAxiosError to check error type
+		if (axios.isAxiosError(error) && error.response?.status === 404) {
 			return null;
 		}
 		throw error;
@@ -65,11 +66,10 @@ const register = async (userData: FormData): Promise<User> => {
 				"Content-Type": "multipart/form-data",
 			},
 		});
-
-		console.log(userData);
 		return data;
 	} catch (error) {
-		throw error instanceof AxiosError
+		// Use axios.isAxiosError for safety
+		throw axios.isAxiosError(error)
 			? new Error(error.response?.data?.error || "Registration failed")
 			: error;
 	}
@@ -82,20 +82,20 @@ const loginUser = async (userData: LoginData): Promise<LoginResponse> => {
 			userData,
 			{
 				withCredentials: true,
-				headers: {
+				/* 	headers: {
 					"Content-Type": "application/json",
-				},
+				}, */
 			}
 		);
 		return data;
 	} catch (error) {
-		throw error instanceof AxiosError
+		throw axios.isAxiosError(error)
 			? new Error(error.response?.data?.error || "Login failed")
 			: error;
 	}
 };
 
-const logout = async () => {
+const logout = async (): Promise<any> => {
 	try {
 		const { data } = await axios.post(
 			getApuUrl("/api/users/logout"),
@@ -104,7 +104,7 @@ const logout = async () => {
 		);
 		return data;
 	} catch (error) {
-		throw error instanceof AxiosError
+		throw axios.isAxiosError(error)
 			? new Error(error.response?.data?.error || "Logout unsuccessful")
 			: error;
 	}
@@ -132,7 +132,7 @@ export const useLogoutMutation = () => {
 export const useRegisterMutation = () => {
 	const navigate = useNavigate();
 
-	return useMutation({
+	return useMutation<User, Error, FormData>({
 		mutationFn: register,
 		onSuccess: () => {
 			navigate("/login");
@@ -148,7 +148,7 @@ export const useLoginMutation = () => {
 	const navigate = useNavigate();
 	const { login } = useAuth();
 
-	return useMutation({
+	return useMutation<LoginResponse, Error, LoginData>({
 		mutationFn: loginUser,
 		onSuccess: (data: LoginResponse) => {
 			if (data.user) {
