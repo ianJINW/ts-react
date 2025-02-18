@@ -1,5 +1,7 @@
 import multer from "multer";
 import path from "path";
+import { v2 as cloudinary } from "cloudinary";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
 
 // Set storage engine
 const storage = multer.diskStorage({
@@ -24,6 +26,19 @@ const postStorage = multer.diskStorage({
 	},
 });
 
+cloudinary.config({
+	cloud_name: process.env.CLOUDINARY_CLOUD_NAME!,
+	api_key: process.env.CLOUDINARY_API_KEY!,
+	api_secret: process.env.CLOUDINARY_API_SECRET!,
+});
+
+const Cloud_storage = new CloudinaryStorage({
+	cloudinary: cloudinary,
+	params: {
+		public_id: (req, file) => "posts",
+	},
+});
+
 // Check file type
 const checkFileType = (
 	file: Express.Multer.File,
@@ -42,14 +57,15 @@ const checkFileType = (
 
 // Initialize upload
 const upload = multer({
-	storage,
+	storage: storage,
+	limits: { fileSize: 1024 * 1024 * 20 },
 	fileFilter: (req, file, cb) => {
 		checkFileType(file, cb);
 	},
 });
 
 const posts = multer({
-	storage: postStorage,
+	storage: Cloud_storage,
 	limits: { fileSize: 1024 * 1024 * 20 },
 	fileFilter: (req, file, cb) => {
 		checkFileType(file, cb);

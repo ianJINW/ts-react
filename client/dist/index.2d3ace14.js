@@ -2954,25 +2954,40 @@ var _clientDefault = parcelHelpers.interopDefault(_client);
 var _app = require("./App");
 var _appDefault = parcelHelpers.interopDefault(_app);
 var _reactQuery = require("@tanstack/react-query");
+var _authContext = require("./AuthContext");
 const rootElement = document.querySelector(".root");
 const root = (0, _clientDefault.default).createRoot(rootElement);
-const queryClient = new (0, _reactQuery.QueryClient)();
+const queryClient = new (0, _reactQuery.QueryClient)({
+    defaultOptions: {
+        queries: {
+            retry: false,
+            refetchOnWindowFocus: false,
+            staleTime: 300000
+        }
+    }
+});
 root.render(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactDefault.default).StrictMode, {
-    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactQuery.QueryClientProvider), {
-        client: queryClient,
-        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _appDefault.default), {}, void 0, false, {
+    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _authContext.AuthProvider), {
+        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactQuery.QueryClientProvider), {
+            client: queryClient,
+            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _appDefault.default), {}, void 0, false, {
+                fileName: "src/index.tsx",
+                lineNumber: 24,
+                columnNumber: 5
+            }, undefined)
+        }, void 0, false, {
             fileName: "src/index.tsx",
-            lineNumber: 13,
+            lineNumber: 23,
             columnNumber: 4
         }, undefined)
     }, void 0, false, {
         fileName: "src/index.tsx",
-        lineNumber: 12,
+        lineNumber: 22,
         columnNumber: 3
     }, undefined)
 }, void 0, false, {
     fileName: "src/index.tsx",
-    lineNumber: 11,
+    lineNumber: 21,
     columnNumber: 2
 }, undefined));
 
@@ -2981,7 +2996,7 @@ root.render(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactDefault.default).
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-dom/client":"lOjBx","./App":"7F5Te","@tanstack/react-query":"aWjl8","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"iTorj":[function(require,module,exports,__globalThis) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-dom/client":"lOjBx","./App":"7F5Te","@tanstack/react-query":"aWjl8","./AuthContext":"8gFKQ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"iTorj":[function(require,module,exports,__globalThis) {
 'use strict';
 module.exports = require("ee51401569654d91");
 
@@ -18597,80 +18612,106 @@ var _posts = require("./pages/Posts");
 var _postsDefault = parcelHelpers.interopDefault(_posts);
 var _account = require("./pages/Account");
 var _accountDefault = parcelHelpers.interopDefault(_account);
+var _login = require("./pages/Login");
+var _loginDefault = parcelHelpers.interopDefault(_login);
+var _register = require("./pages/Register");
+var _registerDefault = parcelHelpers.interopDefault(_register);
+var _useAuth = require("./useAuth");
+var _appCss = require("./app.css");
+var _s = $RefreshSig$();
 const App = ()=>{
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("main", {
-        children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
-                children: "React app"
-            }, void 0, false, {
-                fileName: "src/App.tsx",
-                lineNumber: 11,
-                columnNumber: 4
-            }, undefined),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.BrowserRouter), {
-                children: [
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _navbarDefault.default), {}, void 0, false, {
-                        fileName: "src/App.tsx",
-                        lineNumber: 14,
-                        columnNumber: 5
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Routes), {
-                        children: [
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
-                                path: "/",
-                                element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _homeDefault.default), {}, void 0, false, {
-                                    fileName: "src/App.tsx",
-                                    lineNumber: 17,
-                                    columnNumber: 31
-                                }, void 0)
-                            }, void 0, false, {
+    _s();
+    console.log("API URL:", "http://localhost:8000", "http:localhost:8000");
+    const { user } = (0, _useAuth.useAuth)();
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.BrowserRouter), {
+            children: [
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _navbarDefault.default), {}, void 0, false, {
+                    fileName: "src/App.tsx",
+                    lineNumber: 20,
+                    columnNumber: 5
+                }, undefined),
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Routes), {
+                    children: [
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
+                            path: "/",
+                            element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _homeDefault.default), {}, void 0, false, {
                                 fileName: "src/App.tsx",
-                                lineNumber: 17,
-                                columnNumber: 6
-                            }, undefined),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
-                                path: "/fyp",
-                                element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _postsDefault.default), {}, void 0, false, {
-                                    fileName: "src/App.tsx",
-                                    lineNumber: 18,
-                                    columnNumber: 34
-                                }, void 0)
-                            }, void 0, false, {
+                                lineNumber: 23,
+                                columnNumber: 31
+                            }, void 0)
+                        }, void 0, false, {
+                            fileName: "src/App.tsx",
+                            lineNumber: 23,
+                            columnNumber: 6
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
+                            path: "/fyp",
+                            element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _postsDefault.default), {}, void 0, false, {
                                 fileName: "src/App.tsx",
-                                lineNumber: 18,
-                                columnNumber: 6
-                            }, undefined),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
-                                path: "/account",
-                                element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _accountDefault.default), {}, void 0, false, {
-                                    fileName: "src/App.tsx",
-                                    lineNumber: 19,
-                                    columnNumber: 38
-                                }, void 0)
-                            }, void 0, false, {
+                                lineNumber: 24,
+                                columnNumber: 34
+                            }, void 0)
+                        }, void 0, false, {
+                            fileName: "src/App.tsx",
+                            lineNumber: 24,
+                            columnNumber: 6
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
+                            path: "/account",
+                            element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _accountDefault.default), {}, void 0, false, {
                                 fileName: "src/App.tsx",
-                                lineNumber: 19,
-                                columnNumber: 6
-                            }, undefined)
-                        ]
-                    }, void 0, true, {
-                        fileName: "src/App.tsx",
-                        lineNumber: 16,
-                        columnNumber: 5
-                    }, undefined)
-                ]
-            }, void 0, true, {
-                fileName: "src/App.tsx",
-                lineNumber: 13,
-                columnNumber: 4
-            }, undefined)
-        ]
-    }, void 0, true, {
-        fileName: "src/App.tsx",
-        lineNumber: 10,
-        columnNumber: 3
-    }, undefined);
+                                lineNumber: 25,
+                                columnNumber: 38
+                            }, void 0)
+                        }, void 0, false, {
+                            fileName: "src/App.tsx",
+                            lineNumber: 25,
+                            columnNumber: 6
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
+                            path: "/login",
+                            element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _loginDefault.default), {}, void 0, false, {
+                                fileName: "src/App.tsx",
+                                lineNumber: 26,
+                                columnNumber: 36
+                            }, void 0)
+                        }, void 0, false, {
+                            fileName: "src/App.tsx",
+                            lineNumber: 26,
+                            columnNumber: 6
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
+                            path: "/register",
+                            element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _registerDefault.default), {}, void 0, false, {
+                                fileName: "src/App.tsx",
+                                lineNumber: 27,
+                                columnNumber: 39
+                            }, void 0)
+                        }, void 0, false, {
+                            fileName: "src/App.tsx",
+                            lineNumber: 27,
+                            columnNumber: 6
+                        }, undefined)
+                    ]
+                }, void 0, true, {
+                    fileName: "src/App.tsx",
+                    lineNumber: 22,
+                    columnNumber: 5
+                }, undefined)
+            ]
+        }, void 0, true, {
+            fileName: "src/App.tsx",
+            lineNumber: 19,
+            columnNumber: 4
+        }, undefined)
+    }, void 0, false);
 };
+_s(App, "9ep4vdl3mBfipxjmc+tQCDhw6Ik=", false, function() {
+    return [
+        (0, _useAuth.useAuth)
+    ];
+});
 _c = App;
 exports.default = App;
 var _c;
@@ -18681,7 +18722,7 @@ $RefreshReg$(_c, "App");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./components/navbar":"cUKPO","react-router-dom":"9xmpe","./pages/Home":"dnirJ","./pages/Posts":"fEOIc","./pages/Account":"hsM6P","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"cUKPO":[function(require,module,exports,__globalThis) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./components/navbar":"cUKPO","react-router-dom":"9xmpe","./pages/Home":"dnirJ","./pages/Posts":"fEOIc","./pages/Account":"hsM6P","./pages/Login":"7TDKI","./pages/Register":"9llR3","./useAuth":"cZDkJ","./app.css":"j7YWT","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"cUKPO":[function(require,module,exports,__globalThis) {
 var $parcel$ReactRefreshHelpers$573a = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -18691,16 +18732,45 @@ try {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
 var _reactRouterDom = require("react-router-dom");
+var _useAuth = require("../useAuth");
+var _query = require("../utils/query");
+var _s = $RefreshSig$();
 const Navbar = ()=>{
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+    _s();
+    const { user, isDark, dark } = (0, _useAuth.useAuth)();
+    const logoutMutation = (0, _query.useLogoutMutation)();
+    const handleLogout = (e)=>{
+        e.preventDefault();
+        logoutMutation.mutate();
+    };
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        className: "navbar",
         children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
-                src: "",
-                alt: ""
+            user && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
+                src: user.image,
+                alt: user.username,
+                className: "profile-image"
             }, void 0, false, {
                 fileName: "src/components/navbar.tsx",
-                lineNumber: 6,
+                lineNumber: 18,
+                columnNumber: 5
+            }, undefined),
+            user && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
+                children: user.username
+            }, void 0, false, {
+                fileName: "src/components/navbar.tsx",
+                lineNumber: 20,
+                columnNumber: 13
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+                onClick: dark,
+                children: isDark ? "Light Mode" : "Dark Mode"
+            }, void 0, false, {
+                fileName: "src/components/navbar.tsx",
+                lineNumber: 21,
                 columnNumber: 4
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("nav", {
@@ -18710,7 +18780,7 @@ const Navbar = ()=>{
                         children: "Home"
                     }, void 0, false, {
                         fileName: "src/components/navbar.tsx",
-                        lineNumber: 8,
+                        lineNumber: 23,
                         columnNumber: 5
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
@@ -18718,27 +18788,74 @@ const Navbar = ()=>{
                         children: "Posts"
                     }, void 0, false, {
                         fileName: "src/components/navbar.tsx",
-                        lineNumber: 9,
+                        lineNumber: 24,
                         columnNumber: 5
                     }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
-                        to: "/account",
-                        children: "Account"
-                    }, void 0, false, {
-                        fileName: "src/components/navbar.tsx",
-                        lineNumber: 10,
-                        columnNumber: 5
-                    }, undefined)
+                    user ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
+                                to: "/account",
+                                children: "Account"
+                            }, void 0, false, {
+                                fileName: "src/components/navbar.tsx",
+                                lineNumber: 27,
+                                columnNumber: 7
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("form", {
+                                onSubmit: handleLogout,
+                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+                                    type: "submit",
+                                    children: "Log out"
+                                }, void 0, false, {
+                                    fileName: "src/components/navbar.tsx",
+                                    lineNumber: 29,
+                                    columnNumber: 8
+                                }, undefined)
+                            }, void 0, false, {
+                                fileName: "src/components/navbar.tsx",
+                                lineNumber: 28,
+                                columnNumber: 7
+                            }, undefined)
+                        ]
+                    }, void 0, true) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
+                                to: "/login",
+                                children: "Login"
+                            }, void 0, false, {
+                                fileName: "src/components/navbar.tsx",
+                                lineNumber: 34,
+                                columnNumber: 7
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
+                                to: "/register",
+                                children: "Register"
+                            }, void 0, false, {
+                                fileName: "src/components/navbar.tsx",
+                                lineNumber: 35,
+                                columnNumber: 7
+                            }, undefined)
+                        ]
+                    }, void 0, true)
                 ]
             }, void 0, true, {
                 fileName: "src/components/navbar.tsx",
-                lineNumber: 7,
+                lineNumber: 22,
                 columnNumber: 4
-            }, undefined),
-            " "
+            }, undefined)
         ]
-    }, void 0, true);
+    }, void 0, true, {
+        fileName: "src/components/navbar.tsx",
+        lineNumber: 16,
+        columnNumber: 3
+    }, undefined);
 };
+_s(Navbar, "76L/MZuJDYrLykPYLtfHDH0C4iA=", false, function() {
+    return [
+        (0, _useAuth.useAuth),
+        (0, _query.useLogoutMutation)
+    ];
+});
 _c = Navbar;
 exports.default = Navbar;
 var _c;
@@ -18749,7 +18866,7 @@ $RefreshReg$(_c, "Navbar");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react-router-dom":"9xmpe","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"9xmpe":[function(require,module,exports,__globalThis) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-router-dom":"9xmpe","../useAuth":"cZDkJ","../utils/query":"x89dN","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"9xmpe":[function(require,module,exports,__globalThis) {
 /**
  * React Router DOM v6.29.0
  *
@@ -26008,7 +26125,89 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}],"km3Ru":[function(require,module,exports,__globalThis) {
+},{}],"cZDkJ":[function(require,module,exports,__globalThis) {
+var $parcel$ReactRefreshHelpers$6f0a = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$6f0a.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "useAuth", ()=>useAuth);
+var _react = require("react");
+var _authContext = require("./AuthContext");
+var _authContextDefault = parcelHelpers.interopDefault(_authContext);
+var _s = $RefreshSig$();
+const useAuth = ()=>{
+    _s();
+    const context = (0, _react.useContext)((0, _authContextDefault.default));
+    if (!context) throw new Error("useAuth must be used within an AuthProvider");
+    console.log(context, context.login);
+    return context;
+};
+_s(useAuth, "b9L3QQ+jgeyIrH0NfHrJ8nn7VMU=");
+
+  $parcel$ReactRefreshHelpers$6f0a.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react":"21dqq","./AuthContext":"8gFKQ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"8gFKQ":[function(require,module,exports,__globalThis) {
+var $parcel$ReactRefreshHelpers$8f1a = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$8f1a.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "AuthProvider", ()=>AuthProvider);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _s = $RefreshSig$();
+const AuthContext = /*#__PURE__*/ (0, _react.createContext)(null);
+exports.default = AuthContext;
+const AuthProvider = ({ children })=>{
+    _s();
+    const [user, setUser] = (0, _react.useState)(null);
+    const [isDark, setDark] = (0, _react.useState)(false);
+    const login = (userData)=>{
+        setUser(userData);
+    };
+    const dark = ()=>{
+        setDark((prevMode)=>!prevMode);
+    };
+    const logout = ()=>{
+        setUser(null);
+    };
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(AuthContext.Provider, {
+        value: {
+            user,
+            login,
+            logout,
+            dark,
+            isDark
+        },
+        children: children
+    }, void 0, false, {
+        fileName: "src/AuthContext.tsx",
+        lineNumber: 40,
+        columnNumber: 3
+    }, undefined);
+};
+_s(AuthProvider, "0XrHuHxHCojpn8Xmj65Z/4MKOUI=");
+_c = AuthProvider;
+var _c;
+$RefreshReg$(_c, "AuthProvider");
+
+  $parcel$ReactRefreshHelpers$8f1a.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"km3Ru":[function(require,module,exports,__globalThis) {
 "use strict";
 var Refresh = require("7422ead32dcc1e6b");
 var { version } = require("630b62916b1ae0e7");
@@ -26153,168 +26352,123 @@ function registerExportsForReactRefresh(module1) {
 },{"7422ead32dcc1e6b":"786KC","630b62916b1ae0e7":"4SQxb"}],"4SQxb":[function(require,module,exports,__globalThis) {
 module.exports = JSON.parse("{\"name\":\"react-refresh\",\"description\":\"React is a JavaScript library for building user interfaces.\",\"keywords\":[\"react\"],\"version\":\"0.14.2\",\"homepage\":\"https://reactjs.org/\",\"bugs\":\"https://github.com/facebook/react/issues\",\"license\":\"MIT\",\"files\":[\"LICENSE\",\"README.md\",\"babel.js\",\"runtime.js\",\"cjs/\",\"umd/\"],\"main\":\"runtime.js\",\"exports\":{\".\":\"./runtime.js\",\"./runtime\":\"./runtime.js\",\"./babel\":\"./babel.js\",\"./package.json\":\"./package.json\"},\"repository\":{\"type\":\"git\",\"url\":\"https://github.com/facebook/react.git\",\"directory\":\"packages/react\"},\"engines\":{\"node\":\">=0.10.0\"},\"devDependencies\":{\"react-16-8\":\"npm:react@16.8.0\",\"react-dom-16-8\":\"npm:react-dom@16.8.0\",\"scheduler-0-13\":\"npm:scheduler@0.13.0\"}}");
 
-},{}],"dnirJ":[function(require,module,exports,__globalThis) {
-var $parcel$ReactRefreshHelpers$c258 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
-var prevRefreshReg = window.$RefreshReg$;
-var prevRefreshSig = window.$RefreshSig$;
-$parcel$ReactRefreshHelpers$c258.prelude(module);
-
-try {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _jsxDevRuntime = require("react/jsx-dev-runtime");
-var _react = require("react");
-var _reactDefault = parcelHelpers.interopDefault(_react);
-const Home = ()=>{
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
-        children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
-                src: "",
-                alt: ""
-            }, void 0, false, {
-                fileName: "src/pages/Home.tsx",
-                lineNumber: 6,
-                columnNumber: 4
-            }, undefined),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("main", {
-                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                    children: "Hello "
-                }, void 0, false, {
-                    fileName: "src/pages/Home.tsx",
-                    lineNumber: 9,
-                    columnNumber: 5
-                }, undefined)
-            }, void 0, false, {
-                fileName: "src/pages/Home.tsx",
-                lineNumber: 8,
-                columnNumber: 4
-            }, undefined)
-        ]
-    }, void 0, true);
-};
-_c = Home;
-exports.default = Home;
-var _c;
-$RefreshReg$(_c, "Home");
-
-  $parcel$ReactRefreshHelpers$c258.postlude(module);
-} finally {
-  window.$RefreshReg$ = prevRefreshReg;
-  window.$RefreshSig$ = prevRefreshSig;
-}
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"fEOIc":[function(require,module,exports,__globalThis) {
-var $parcel$ReactRefreshHelpers$d133 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
-var prevRefreshReg = window.$RefreshReg$;
-var prevRefreshSig = window.$RefreshSig$;
-$parcel$ReactRefreshHelpers$d133.prelude(module);
-
-try {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _jsxDevRuntime = require("react/jsx-dev-runtime");
-var _react = require("react");
-var _reactDefault = parcelHelpers.interopDefault(_react);
-var _query = require("../utils/query");
-var _s = $RefreshSig$();
-const Posts = ()=>{
-    _s();
-    const { data: posts, error, isLoading } = (0, _query.useFetchData)(`${"http:localhost:8000"}/posts`);
-    console.log(posts);
-    if (isLoading) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-        children: "Loading..."
-    }, void 0, false, {
-        fileName: "src/pages/Posts.tsx",
-        lineNumber: 14,
-        columnNumber: 10
-    }, undefined);
-    if (error) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-        children: [
-            "Error: ",
-            error.message
-        ]
-    }, void 0, true, {
-        fileName: "src/pages/Posts.tsx",
-        lineNumber: 18,
-        columnNumber: 10
-    }, undefined);
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
-                children: "Posts"
-            }, void 0, false, {
-                fileName: "src/pages/Posts.tsx",
-                lineNumber: 23,
-                columnNumber: 4
-            }, undefined),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("main", {
-                children: posts && posts.map((post)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("article", {
-                        children: [
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                                children: post.post
-                            }, void 0, false, {
-                                fileName: "src/pages/Posts.tsx",
-                                lineNumber: 29,
-                                columnNumber: 8
-                            }, undefined),
-                            post.image && post.image.trim() !== "" && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
-                                src: post.image,
-                                alt: post.post
-                            }, void 0, false, {
-                                fileName: "src/pages/Posts.tsx",
-                                lineNumber: 31,
-                                columnNumber: 9
-                            }, undefined)
-                        ]
-                    }, post.id, true, {
-                        fileName: "src/pages/Posts.tsx",
-                        lineNumber: 28,
-                        columnNumber: 7
-                    }, undefined))
-            }, void 0, false, {
-                fileName: "src/pages/Posts.tsx",
-                lineNumber: 25,
-                columnNumber: 4
-            }, undefined)
-        ]
-    }, void 0, true, {
-        fileName: "src/pages/Posts.tsx",
-        lineNumber: 22,
-        columnNumber: 3
-    }, undefined);
-};
-_s(Posts, "eToW3rqxk71cVdjLYiTeEduWbGs=", false, function() {
-    return [
-        (0, _query.useFetchData)
-    ];
-});
-_c = Posts;
-exports.default = Posts;
-var _c;
-$RefreshReg$(_c, "Posts");
-
-  $parcel$ReactRefreshHelpers$d133.postlude(module);
-} finally {
-  window.$RefreshReg$ = prevRefreshReg;
-  window.$RefreshSig$ = prevRefreshSig;
-}
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../utils/query":"x89dN","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"x89dN":[function(require,module,exports,__globalThis) {
+},{}],"x89dN":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "useFetchData", ()=>useFetchData);
+parcelHelpers.export(exports, "useLogoutMutation", ()=>useLogoutMutation);
+parcelHelpers.export(exports, "useRegisterMutation", ()=>useRegisterMutation);
+parcelHelpers.export(exports, "useLoginMutation", ()=>useLoginMutation);
 var _reactQuery = require("@tanstack/react-query");
 var _axios = require("axios");
 var _axiosDefault = parcelHelpers.interopDefault(_axios);
+var _url = require("./url");
+var _reactRouter = require("react-router");
+var _useAuth = require("../useAuth");
+const fetchData = async (url)=>{
+    try {
+        const response = await (0, _axiosDefault.default).get((0, _url.getApuUrl)(url), {
+            withCredentials: true
+        });
+        return response.data;
+    } catch (error) {
+        if (error instanceof (0, _axios.AxiosError) && error.response?.status === 404) return null;
+        throw error;
+    }
+};
 const useFetchData = (url)=>{
-    console.log(url);
     return (0, _reactQuery.useQuery)({
         queryKey: [
-            "data"
+            url
         ],
-        queryFn: ()=>(0, _axiosDefault.default).get(url).then((res)=>res.data)
+        queryFn: ()=>fetchData(url),
+        retry: false,
+        staleTime: 300000
+    });
+};
+const register = async (userData)=>{
+    try {
+        const { data } = await (0, _axiosDefault.default).post((0, _url.getApuUrl)("/register"), userData, {
+            withCredentials: true,
+            headers: {
+                "Content-Type": "multipart/form-data"
+            }
+        });
+        console.log(userData);
+        return data;
+    } catch (error) {
+        throw error instanceof (0, _axios.AxiosError) ? new Error(error.response?.data?.error || "Registration failed") : error;
+    }
+};
+const loginUser = async (userData)=>{
+    try {
+        const { data } = await (0, _axiosDefault.default).post((0, _url.getApuUrl)("/login"), userData, {
+            withCredentials: true,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+        return data;
+    } catch (error) {
+        throw error instanceof (0, _axios.AxiosError) ? new Error(error.response?.data?.error || "Login failed") : error;
+    }
+};
+const logout = async ()=>{
+    try {
+        const { data } = await (0, _axiosDefault.default).post((0, _url.getApuUrl)("/api/users/logout"), {}, {
+            withCredentials: true
+        });
+        return data;
+    } catch (error) {
+        throw error instanceof (0, _axios.AxiosError) ? new Error(error.response?.data?.error || "Logout unsuccessful") : error;
+    }
+};
+const useLogoutMutation = ()=>{
+    const navigate = (0, _reactRouter.useNavigate)();
+    const { logout: logoutContext } = (0, _useAuth.useAuth)();
+    const queryClient = (0, _reactQuery.useQueryClient)();
+    return (0, _reactQuery.useMutation)({
+        mutationFn: logout,
+        onSuccess: ()=>{
+            logoutContext();
+            queryClient.clear();
+            navigate("/");
+        },
+        onError: (error)=>{
+            console.error("Logout error:", error);
+            navigate("/account");
+        }
+    });
+};
+const useRegisterMutation = ()=>{
+    const navigate = (0, _reactRouter.useNavigate)();
+    return (0, _reactQuery.useMutation)({
+        mutationFn: register,
+        onSuccess: ()=>{
+            navigate("/login");
+        },
+        onError: (error)=>{
+            console.error("Registration error:", error);
+            navigate("/register");
+        }
+    });
+};
+const useLoginMutation = ()=>{
+    const navigate = (0, _reactRouter.useNavigate)();
+    const { login } = (0, _useAuth.useAuth)();
+    return (0, _reactQuery.useMutation)({
+        mutationFn: loginUser,
+        onSuccess: (data)=>{
+            if (data.user) login(data.user);
+            navigate("/fyp");
+        },
+        onError: (error)=>{
+            console.error("Login error:", error);
+        }
     });
 };
 
-},{"@tanstack/react-query":"aWjl8","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","axios":"jo6P5"}],"aWjl8":[function(require,module,exports,__globalThis) {
+},{"@tanstack/react-query":"aWjl8","axios":"jo6P5","./url":"hGb07","react-router":"dbWyW","../useAuth":"cZDkJ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"aWjl8":[function(require,module,exports,__globalThis) {
 // src/index.ts
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
@@ -26362,7 +26516,7 @@ var _useMutationJs = require("./useMutation.js");
 var _useInfiniteQueryJs = require("./useInfiniteQuery.js");
 var _isRestoringJs = require("./isRestoring.js");
 
-},{"@tanstack/query-core":"jRuwo","./types.js":"1to0R","./useQueries.js":false,"./useQuery.js":"14NFb","./useSuspenseQuery.js":false,"./useSuspenseInfiniteQuery.js":false,"./useSuspenseQueries.js":false,"./usePrefetchQuery.js":false,"./usePrefetchInfiniteQuery.js":false,"./queryOptions.js":false,"./infiniteQueryOptions.js":false,"./QueryClientProvider.js":"aG0ru","./HydrationBoundary.js":false,"./QueryErrorResetBoundary.js":false,"./useIsFetching.js":false,"./useMutationState.js":false,"./useMutation.js":false,"./useInfiniteQuery.js":false,"./isRestoring.js":false,"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jRuwo":[function(require,module,exports,__globalThis) {
+},{"@tanstack/query-core":"jRuwo","./types.js":"1to0R","./useQueries.js":false,"./useQuery.js":"14NFb","./useSuspenseQuery.js":false,"./useSuspenseInfiniteQuery.js":false,"./useSuspenseQueries.js":false,"./usePrefetchQuery.js":false,"./usePrefetchInfiniteQuery.js":false,"./queryOptions.js":false,"./infiniteQueryOptions.js":false,"./QueryClientProvider.js":"aG0ru","./HydrationBoundary.js":false,"./QueryErrorResetBoundary.js":false,"./useIsFetching.js":false,"./useMutationState.js":false,"./useMutation.js":"9ZVbG","./useInfiniteQuery.js":false,"./isRestoring.js":false,"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jRuwo":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "CancelledError", ()=>(0, _retryerJs.CancelledError));
@@ -26410,7 +26564,7 @@ parcelHelpers.exportAll(_typesJs, exports);
 var _queryJs = require("./query.js");
 var _mutationJs = require("./mutation.js");
 
-},{"./chunk-2HYBKCYP.js":"lVOHp","./retryer.js":false,"./queryCache.js":false,"./queryClient.js":"8i0sw","./queryObserver.js":"9XQ3m","./queriesObserver.js":false,"./infiniteQueryObserver.js":false,"./mutationCache.js":false,"./mutationObserver.js":false,"./notifyManager.js":"4fVZJ","./focusManager.js":false,"./onlineManager.js":false,"./utils.js":"9DLaR","./hydration.js":false,"./types.js":false,"./query.js":false,"./mutation.js":false,"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lVOHp":[function(require,module,exports,__globalThis) {
+},{"./chunk-2HYBKCYP.js":"lVOHp","./retryer.js":false,"./queryCache.js":false,"./queryClient.js":"8i0sw","./queryObserver.js":"9XQ3m","./queriesObserver.js":false,"./infiniteQueryObserver.js":false,"./mutationCache.js":false,"./mutationObserver.js":"lL4ja","./notifyManager.js":"4fVZJ","./focusManager.js":false,"./onlineManager.js":false,"./utils.js":"9DLaR","./hydration.js":false,"./types.js":false,"./query.js":false,"./mutation.js":false,"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lVOHp":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "__privateGet", ()=>__privateGet);
@@ -28699,7 +28853,114 @@ function shouldAssignObserverCurrentProperties(observer, optimisticResult) {
     return false;
 }
 
-},{"./chunk-2HYBKCYP.js":"lVOHp","./focusManager.js":"1WW1i","./notifyManager.js":"4fVZJ","./query.js":"9O40h","./subscribable.js":"3hIjA","./thenable.js":"7JZUK","./utils.js":"9DLaR","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1to0R":[function(require,module,exports,__globalThis) {
+},{"./chunk-2HYBKCYP.js":"lVOHp","./focusManager.js":"1WW1i","./notifyManager.js":"4fVZJ","./query.js":"9O40h","./subscribable.js":"3hIjA","./thenable.js":"7JZUK","./utils.js":"9DLaR","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lL4ja":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "MutationObserver", ()=>MutationObserver);
+var _chunk2HYBKCYPJs = require("./chunk-2HYBKCYP.js");
+// src/mutationObserver.ts
+var _mutationJs = require("./mutation.js");
+var _notifyManagerJs = require("./notifyManager.js");
+var _subscribableJs = require("./subscribable.js");
+var _utilsJs = require("./utils.js");
+var _client, _currentResult, _currentMutation, _mutateOptions, _updateResult, updateResult_fn, _notify, notify_fn;
+var MutationObserver = class extends (0, _subscribableJs.Subscribable) {
+    constructor(client, options){
+        super();
+        (0, _chunk2HYBKCYPJs.__privateAdd)(this, _updateResult);
+        (0, _chunk2HYBKCYPJs.__privateAdd)(this, _notify);
+        (0, _chunk2HYBKCYPJs.__privateAdd)(this, _client, void 0);
+        (0, _chunk2HYBKCYPJs.__privateAdd)(this, _currentResult, void 0);
+        (0, _chunk2HYBKCYPJs.__privateAdd)(this, _currentMutation, void 0);
+        (0, _chunk2HYBKCYPJs.__privateAdd)(this, _mutateOptions, void 0);
+        (0, _chunk2HYBKCYPJs.__privateSet)(this, _client, client);
+        this.setOptions(options);
+        this.bindMethods();
+        (0, _chunk2HYBKCYPJs.__privateMethod)(this, _updateResult, updateResult_fn).call(this);
+    }
+    bindMethods() {
+        this.mutate = this.mutate.bind(this);
+        this.reset = this.reset.bind(this);
+    }
+    setOptions(options) {
+        var _a;
+        const prevOptions = this.options;
+        this.options = (0, _chunk2HYBKCYPJs.__privateGet)(this, _client).defaultMutationOptions(options);
+        if (!(0, _utilsJs.shallowEqualObjects)(this.options, prevOptions)) (0, _chunk2HYBKCYPJs.__privateGet)(this, _client).getMutationCache().notify({
+            type: "observerOptionsUpdated",
+            mutation: (0, _chunk2HYBKCYPJs.__privateGet)(this, _currentMutation),
+            observer: this
+        });
+        if ((prevOptions == null ? void 0 : prevOptions.mutationKey) && this.options.mutationKey && (0, _utilsJs.hashKey)(prevOptions.mutationKey) !== (0, _utilsJs.hashKey)(this.options.mutationKey)) this.reset();
+        else if (((_a = (0, _chunk2HYBKCYPJs.__privateGet)(this, _currentMutation)) == null ? void 0 : _a.state.status) === "pending") (0, _chunk2HYBKCYPJs.__privateGet)(this, _currentMutation).setOptions(this.options);
+    }
+    onUnsubscribe() {
+        var _a;
+        if (!this.hasListeners()) (_a = (0, _chunk2HYBKCYPJs.__privateGet)(this, _currentMutation)) == null || _a.removeObserver(this);
+    }
+    onMutationUpdate(action) {
+        (0, _chunk2HYBKCYPJs.__privateMethod)(this, _updateResult, updateResult_fn).call(this);
+        (0, _chunk2HYBKCYPJs.__privateMethod)(this, _notify, notify_fn).call(this, action);
+    }
+    getCurrentResult() {
+        return (0, _chunk2HYBKCYPJs.__privateGet)(this, _currentResult);
+    }
+    reset() {
+        var _a;
+        (_a = (0, _chunk2HYBKCYPJs.__privateGet)(this, _currentMutation)) == null || _a.removeObserver(this);
+        (0, _chunk2HYBKCYPJs.__privateSet)(this, _currentMutation, void 0);
+        (0, _chunk2HYBKCYPJs.__privateMethod)(this, _updateResult, updateResult_fn).call(this);
+        (0, _chunk2HYBKCYPJs.__privateMethod)(this, _notify, notify_fn).call(this);
+    }
+    mutate(variables, options) {
+        var _a;
+        (0, _chunk2HYBKCYPJs.__privateSet)(this, _mutateOptions, options);
+        (_a = (0, _chunk2HYBKCYPJs.__privateGet)(this, _currentMutation)) == null || _a.removeObserver(this);
+        (0, _chunk2HYBKCYPJs.__privateSet)(this, _currentMutation, (0, _chunk2HYBKCYPJs.__privateGet)(this, _client).getMutationCache().build((0, _chunk2HYBKCYPJs.__privateGet)(this, _client), this.options));
+        (0, _chunk2HYBKCYPJs.__privateGet)(this, _currentMutation).addObserver(this);
+        return (0, _chunk2HYBKCYPJs.__privateGet)(this, _currentMutation).execute(variables);
+    }
+};
+_client = new WeakMap();
+_currentResult = new WeakMap();
+_currentMutation = new WeakMap();
+_mutateOptions = new WeakMap();
+_updateResult = new WeakSet();
+updateResult_fn = function() {
+    var _a;
+    const state = ((_a = (0, _chunk2HYBKCYPJs.__privateGet)(this, _currentMutation)) == null ? void 0 : _a.state) ?? (0, _mutationJs.getDefaultState)();
+    (0, _chunk2HYBKCYPJs.__privateSet)(this, _currentResult, {
+        ...state,
+        isPending: state.status === "pending",
+        isSuccess: state.status === "success",
+        isError: state.status === "error",
+        isIdle: state.status === "idle",
+        mutate: this.mutate,
+        reset: this.reset
+    });
+};
+_notify = new WeakSet();
+notify_fn = function(action) {
+    (0, _notifyManagerJs.notifyManager).batch(()=>{
+        var _a, _b, _c, _d, _e, _f, _g, _h;
+        if ((0, _chunk2HYBKCYPJs.__privateGet)(this, _mutateOptions) && this.hasListeners()) {
+            const variables = (0, _chunk2HYBKCYPJs.__privateGet)(this, _currentResult).variables;
+            const context = (0, _chunk2HYBKCYPJs.__privateGet)(this, _currentResult).context;
+            if ((action == null ? void 0 : action.type) === "success") {
+                (_b = (_a = (0, _chunk2HYBKCYPJs.__privateGet)(this, _mutateOptions)).onSuccess) == null || _b.call(_a, action.data, variables, context);
+                (_d = (_c = (0, _chunk2HYBKCYPJs.__privateGet)(this, _mutateOptions)).onSettled) == null || _d.call(_c, action.data, null, variables, context);
+            } else if ((action == null ? void 0 : action.type) === "error") {
+                (_f = (_e = (0, _chunk2HYBKCYPJs.__privateGet)(this, _mutateOptions)).onError) == null || _f.call(_e, action.error, variables, context);
+                (_h = (_g = (0, _chunk2HYBKCYPJs.__privateGet)(this, _mutateOptions)).onSettled) == null || _h.call(_g, void 0, action.error, variables, context);
+            }
+        }
+        this.listeners.forEach((listener)=>{
+            listener((0, _chunk2HYBKCYPJs.__privateGet)(this, _currentResult));
+        });
+    });
+};
+
+},{"./chunk-2HYBKCYP.js":"lVOHp","./mutation.js":"kbWJD","./notifyManager.js":"4fVZJ","./subscribable.js":"3hIjA","./utils.js":"9DLaR","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1to0R":[function(require,module,exports,__globalThis) {
 
 },{}],"14NFb":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -29327,7 +29588,44 @@ var fetchOptimistic = (defaultedOptions, observer, errorResetBoundary)=>observer
         errorResetBoundary.clearReset();
     });
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jo6P5":[function(require,module,exports,__globalThis) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9ZVbG":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "useMutation", ()=>useMutation);
+// src/useMutation.ts
+var _react = require("react");
+var _queryCore = require("@tanstack/query-core");
+var _queryClientProviderJs = require("./QueryClientProvider.js");
+var _utilsJs = require("./utils.js");
+"use client";
+function useMutation(options, queryClient) {
+    const client = (0, _queryClientProviderJs.useQueryClient)(queryClient);
+    const [observer] = _react.useState(()=>new (0, _queryCore.MutationObserver)(client, options));
+    _react.useEffect(()=>{
+        observer.setOptions(options);
+    }, [
+        observer,
+        options
+    ]);
+    const result = _react.useSyncExternalStore(_react.useCallback((onStoreChange)=>observer.subscribe((0, _queryCore.notifyManager).batchCalls(onStoreChange)), [
+        observer
+    ]), ()=>observer.getCurrentResult(), ()=>observer.getCurrentResult());
+    const mutate = _react.useCallback((variables, mutateOptions)=>{
+        observer.mutate(variables, mutateOptions).catch((0, _utilsJs.noop));
+    }, [
+        observer
+    ]);
+    if (result.error && (0, _utilsJs.shouldThrowError)(observer.options.throwOnError, [
+        result.error
+    ])) throw result.error;
+    return {
+        ...result,
+        mutate,
+        mutateAsync: result.mutate
+    };
+}
+
+},{"react":"21dqq","@tanstack/query-core":"jRuwo","./QueryClientProvider.js":"aG0ru","./utils.js":"ba9xo","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jo6P5":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>(0, _axiosJsDefault.default));
@@ -34097,7 +34395,178 @@ Object.entries(HttpStatusCode).forEach(([key, value])=>{
 });
 exports.default = HttpStatusCode;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hsM6P":[function(require,module,exports,__globalThis) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hGb07":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "getApuUrl", ()=>getApuUrl);
+const getApuUrl = (endpoint)=>{
+    const baseURL = "http://localhost:8000";
+    console.log(`
+${baseURL}
+		${baseURL}${endpoint}`);
+    return `${baseURL}${endpoint}`;
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dnirJ":[function(require,module,exports,__globalThis) {
+var $parcel$ReactRefreshHelpers$c258 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$c258.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _useAuth = require("../useAuth");
+var _s = $RefreshSig$();
+const Home = ()=>{
+    _s();
+    const { user } = (0, _useAuth.useAuth)();
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
+                src: user?.image,
+                alt: user?.username
+            }, void 0, false, {
+                fileName: "src/pages/Home.tsx",
+                lineNumber: 12,
+                columnNumber: 4
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("main", {
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                    children: "Hello "
+                }, void 0, false, {
+                    fileName: "src/pages/Home.tsx",
+                    lineNumber: 15,
+                    columnNumber: 5
+                }, undefined)
+            }, void 0, false, {
+                fileName: "src/pages/Home.tsx",
+                lineNumber: 14,
+                columnNumber: 4
+            }, undefined)
+        ]
+    }, void 0, true);
+};
+_s(Home, "9ep4vdl3mBfipxjmc+tQCDhw6Ik=", false, function() {
+    return [
+        (0, _useAuth.useAuth)
+    ];
+});
+_c = Home;
+exports.default = Home;
+var _c;
+$RefreshReg$(_c, "Home");
+
+  $parcel$ReactRefreshHelpers$c258.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","../useAuth":"cZDkJ"}],"fEOIc":[function(require,module,exports,__globalThis) {
+var $parcel$ReactRefreshHelpers$d133 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$d133.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _query = require("../utils/query");
+var _s = $RefreshSig$();
+const Posts = ()=>{
+    _s();
+    const { data: posts, error, isLoading } = (0, _query.useFetchData)("/api/posts");
+    if (isLoading) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+        children: "Loading..."
+    }, void 0, false, {
+        fileName: "src/pages/Posts.tsx",
+        lineNumber: 8,
+        columnNumber: 10
+    }, undefined);
+    if (error) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+        children: [
+            "Error: ",
+            error.message
+        ]
+    }, void 0, true, {
+        fileName: "src/pages/Posts.tsx",
+        lineNumber: 12,
+        columnNumber: 10
+    }, undefined);
+    if (!posts || posts.length === 0) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+        children: "No posts available"
+    }, void 0, false, {
+        fileName: "src/pages/Posts.tsx",
+        lineNumber: 16,
+        columnNumber: 10
+    }, undefined);
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
+                children: "Posts"
+            }, void 0, false, {
+                fileName: "src/pages/Posts.tsx",
+                lineNumber: 21,
+                columnNumber: 4
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("main", {
+                children: posts.map((post)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("article", {
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                                children: post.post
+                            }, void 0, false, {
+                                fileName: "src/pages/Posts.tsx",
+                                lineNumber: 25,
+                                columnNumber: 7
+                            }, undefined),
+                            post.media && post.media.trim() !== "" ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
+                                src: post.media,
+                                alt: post.media
+                            }, void 0, false, {
+                                fileName: "src/pages/Posts.tsx",
+                                lineNumber: 27,
+                                columnNumber: 8
+                            }, undefined) : null
+                        ]
+                    }, post.id, true, {
+                        fileName: "src/pages/Posts.tsx",
+                        lineNumber: 24,
+                        columnNumber: 6
+                    }, undefined))
+            }, void 0, false, {
+                fileName: "src/pages/Posts.tsx",
+                lineNumber: 22,
+                columnNumber: 4
+            }, undefined)
+        ]
+    }, void 0, true, {
+        fileName: "src/pages/Posts.tsx",
+        lineNumber: 20,
+        columnNumber: 3
+    }, undefined);
+};
+_s(Posts, "VedelyobZfNcPq+/q5UFAPr/Eh4=", false, function() {
+    return [
+        (0, _query.useFetchData)
+    ];
+});
+_c = Posts;
+exports.default = Posts;
+var _c;
+$RefreshReg$(_c, "Posts");
+
+  $parcel$ReactRefreshHelpers$d133.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../utils/query":"x89dN","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"hsM6P":[function(require,module,exports,__globalThis) {
 var $parcel$ReactRefreshHelpers$5bb7 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -34109,33 +34578,103 @@ parcelHelpers.defineInteropFlag(exports);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
+var _query = require("../utils/query");
+var _useAuth = require("../useAuth");
+var _authstore = require("../store/authstore");
+var _authstoreDefault = parcelHelpers.interopDefault(_authstore);
+var _s = $RefreshSig$();
 const Account = ()=>{
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+    _s();
+    const { user } = (0, _useAuth.useAuth)();
+    console.log(user);
+    (0, _react.useEffect)(()=>{
+        console.log("Current user:", user);
+    }, [
+        user
+    ]);
+    const { data: userInfo, error, isLoading } = (0, _query.useFetchData)(`/api/users/${user?.id}`);
+    const id = (0, _authstoreDefault.default)((state)=>state.id);
+    console.log(id);
+    if (isLoading) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        children: "Loading..."
+    }, void 0, false, {
+        fileName: "src/pages/Account.tsx",
+        lineNumber: 25,
+        columnNumber: 10
+    }, undefined);
+    if (error) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
-                src: "",
-                alt: ""
-            }, void 0, false, {
-                fileName: "src/pages/Account.tsx",
-                lineNumber: 6,
-                columnNumber: 4
-            }, undefined),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("main", {
-                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                    children: "Hello "
+            "Error: ",
+            error.message
+        ]
+    }, void 0, true, {
+        fileName: "src/pages/Account.tsx",
+        lineNumber: 29,
+        columnNumber: 10
+    }, undefined);
+    if (!userInfo) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        children: "No user information found"
+    }, void 0, false, {
+        fileName: "src/pages/Account.tsx",
+        lineNumber: 33,
+        columnNumber: 10
+    }, undefined);
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("section", {
+        className: "account-section",
+        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+            className: "profile-container",
+            children: [
+                userInfo.image && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
+                    src: userInfo.image,
+                    alt: userInfo.username,
+                    className: "profile-image"
                 }, void 0, false, {
                     fileName: "src/pages/Account.tsx",
-                    lineNumber: 9,
+                    lineNumber: 40,
+                    columnNumber: 6
+                }, undefined),
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                    className: "user-info",
+                    children: [
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
+                            children: userInfo.username
+                        }, void 0, false, {
+                            fileName: "src/pages/Account.tsx",
+                            lineNumber: 47,
+                            columnNumber: 6
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                            children: userInfo.email
+                        }, void 0, false, {
+                            fileName: "src/pages/Account.tsx",
+                            lineNumber: 48,
+                            columnNumber: 6
+                        }, undefined)
+                    ]
+                }, void 0, true, {
+                    fileName: "src/pages/Account.tsx",
+                    lineNumber: 46,
                     columnNumber: 5
                 }, undefined)
-            }, void 0, false, {
-                fileName: "src/pages/Account.tsx",
-                lineNumber: 8,
-                columnNumber: 4
-            }, undefined)
-        ]
-    }, void 0, true);
+            ]
+        }, void 0, true, {
+            fileName: "src/pages/Account.tsx",
+            lineNumber: 38,
+            columnNumber: 4
+        }, undefined)
+    }, void 0, false, {
+        fileName: "src/pages/Account.tsx",
+        lineNumber: 37,
+        columnNumber: 3
+    }, undefined);
 };
+_s(Account, "y310ZDMkqoOaQRseg7IkZWend+s=", false, function() {
+    return [
+        (0, _useAuth.useAuth),
+        (0, _query.useFetchData),
+        (0, _authstoreDefault.default)
+    ];
+});
 _c = Account;
 exports.default = Account;
 var _c;
@@ -34146,6 +34685,456 @@ $RefreshReg$(_c, "Account");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}]},["aQL8O","kMAEo","4aBH6"], "4aBH6", "parcelRequire94c2")
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../utils/query":"x89dN","../useAuth":"cZDkJ","../store/authstore":"eL7Pu","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"eL7Pu":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _zustand = require("zustand");
+const useAuthStore = (0, _zustand.create)((set)=>({
+        id: null,
+        email: null,
+        username: null,
+        image: null,
+        login: (user)=>set((state)=>({
+                    ...state,
+                    ...user
+                })),
+        logout: ()=>set({
+                id: null,
+                email: null,
+                username: null,
+                image: null
+            })
+    }));
+exports.default = useAuthStore;
+
+},{"zustand":"cPNyt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cPNyt":[function(require,module,exports,__globalThis) {
+'use strict';
+var vanilla = require("a19f4edd89926025");
+var react = require("a0cacd268d6bf882");
+Object.keys(vanilla).forEach(function(k) {
+    if (k !== 'default' && !Object.prototype.hasOwnProperty.call(exports, k)) Object.defineProperty(exports, k, {
+        enumerable: true,
+        get: function() {
+            return vanilla[k];
+        }
+    });
+});
+Object.keys(react).forEach(function(k) {
+    if (k !== 'default' && !Object.prototype.hasOwnProperty.call(exports, k)) Object.defineProperty(exports, k, {
+        enumerable: true,
+        get: function() {
+            return react[k];
+        }
+    });
+});
+
+},{"a19f4edd89926025":"2SLIN","a0cacd268d6bf882":"fhDSt"}],"2SLIN":[function(require,module,exports,__globalThis) {
+'use strict';
+const createStoreImpl = (createState)=>{
+    let state;
+    const listeners = /* @__PURE__ */ new Set();
+    const setState = (partial, replace)=>{
+        const nextState = typeof partial === "function" ? partial(state) : partial;
+        if (!Object.is(nextState, state)) {
+            const previousState = state;
+            state = (replace != null ? replace : typeof nextState !== "object" || nextState === null) ? nextState : Object.assign({}, state, nextState);
+            listeners.forEach((listener)=>listener(state, previousState));
+        }
+    };
+    const getState = ()=>state;
+    const getInitialState = ()=>initialState;
+    const subscribe = (listener)=>{
+        listeners.add(listener);
+        return ()=>listeners.delete(listener);
+    };
+    const api = {
+        setState,
+        getState,
+        getInitialState,
+        subscribe
+    };
+    const initialState = state = createState(setState, getState, api);
+    return api;
+};
+const createStore = (createState)=>createState ? createStoreImpl(createState) : createStoreImpl;
+exports.createStore = createStore;
+
+},{}],"fhDSt":[function(require,module,exports,__globalThis) {
+'use strict';
+var React = require("6a69048f974f8971");
+var vanilla = require("985957b117977eb9");
+const identity = (arg)=>arg;
+function useStore(api, selector = identity) {
+    const slice = React.useSyncExternalStore(api.subscribe, ()=>selector(api.getState()), ()=>selector(api.getInitialState()));
+    React.useDebugValue(slice);
+    return slice;
+}
+const createImpl = (createState)=>{
+    const api = vanilla.createStore(createState);
+    const useBoundStore = (selector)=>useStore(api, selector);
+    Object.assign(useBoundStore, api);
+    return useBoundStore;
+};
+const create = (createState)=>createState ? createImpl(createState) : createImpl;
+exports.create = create;
+exports.useStore = useStore;
+
+},{"6a69048f974f8971":"21dqq","985957b117977eb9":"2SLIN"}],"7TDKI":[function(require,module,exports,__globalThis) {
+var $parcel$ReactRefreshHelpers$0417 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$0417.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _query = require("../utils/query");
+var _s = $RefreshSig$();
+const Login = ()=>{
+    _s();
+    const [email, setEmail] = (0, _react.useState)("");
+    const [password, setPassword] = (0, _react.useState)("");
+    const loginMutation = (0, _query.useLoginMutation)();
+    const handleSubmit = (e)=>{
+        e.preventDefault();
+        loginMutation.mutate({
+            email,
+            password
+        });
+    };
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
+                children: "Login"
+            }, void 0, false, {
+                fileName: "src/pages/Login.tsx",
+                lineNumber: 17,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("form", {
+                onSubmit: handleSubmit,
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
+                                children: "Email:"
+                            }, void 0, false, {
+                                fileName: "src/pages/Login.tsx",
+                                lineNumber: 20,
+                                columnNumber: 11
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
+                                type: "email",
+                                value: email,
+                                onChange: (e)=>setEmail(e.target.value),
+                                required: true,
+                                disabled: loginMutation.status === 'pending'
+                            }, void 0, false, {
+                                fileName: "src/pages/Login.tsx",
+                                lineNumber: 21,
+                                columnNumber: 11
+                            }, undefined)
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/pages/Login.tsx",
+                        lineNumber: 19,
+                        columnNumber: 9
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
+                                children: "Password:"
+                            }, void 0, false, {
+                                fileName: "src/pages/Login.tsx",
+                                lineNumber: 30,
+                                columnNumber: 11
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
+                                type: "password",
+                                value: password,
+                                onChange: (e)=>setPassword(e.target.value),
+                                required: true,
+                                disabled: loginMutation.status === 'pending'
+                            }, void 0, false, {
+                                fileName: "src/pages/Login.tsx",
+                                lineNumber: 31,
+                                columnNumber: 11
+                            }, undefined)
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/pages/Login.tsx",
+                        lineNumber: 29,
+                        columnNumber: 9
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+                        type: "submit",
+                        disabled: loginMutation.status === 'pending',
+                        children: loginMutation.status === 'pending' ? "Logging in..." : "Login"
+                    }, void 0, false, {
+                        fileName: "src/pages/Login.tsx",
+                        lineNumber: 39,
+                        columnNumber: 9
+                    }, undefined)
+                ]
+            }, void 0, true, {
+                fileName: "src/pages/Login.tsx",
+                lineNumber: 18,
+                columnNumber: 7
+            }, undefined),
+            loginMutation.isError && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                children: [
+                    "Error:",
+                    " ",
+                    loginMutation.error instanceof Error && loginMutation.error.message
+                ]
+            }, void 0, true, {
+                fileName: "src/pages/Login.tsx",
+                lineNumber: 44,
+                columnNumber: 9
+            }, undefined)
+        ]
+    }, void 0, true, {
+        fileName: "src/pages/Login.tsx",
+        lineNumber: 16,
+        columnNumber: 5
+    }, undefined);
+};
+_s(Login, "uwDCbnMN+cc65ZCdSoQfmIDgVCU=", false, function() {
+    return [
+        (0, _query.useLoginMutation)
+    ];
+});
+_c = Login;
+exports.default = Login;
+var _c;
+$RefreshReg$(_c, "Login");
+
+  $parcel$ReactRefreshHelpers$0417.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../utils/query":"x89dN","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"9llR3":[function(require,module,exports,__globalThis) {
+var $parcel$ReactRefreshHelpers$5f6c = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$5f6c.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _query = require("../utils/query");
+var _s = $RefreshSig$();
+const Register = ()=>{
+    _s();
+    const [email, setEmail] = (0, _react.useState)("");
+    const [username, setUsername] = (0, _react.useState)("");
+    const [password, setPassword] = (0, _react.useState)("");
+    const [profile, setProfileImage] = (0, _react.useState)(null);
+    const [imagePreview, setImagePreview] = (0, _react.useState)(null);
+    const registerMutation = (0, _query.useRegisterMutation)();
+    const handleImageChange = (e)=>{
+        const file = e.target.files?.[0];
+        if (file) {
+            setProfileImage(file);
+            const reader = new FileReader();
+            reader.onloadend = ()=>{
+                setImagePreview(reader.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+    const handleSubmit = (e)=>{
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append("email", email);
+        formData.append("username", username);
+        formData.append("password", password);
+        if (profile) formData.append("image", profile);
+        console.log("FormData:", formData);
+        registerMutation.mutate(formData);
+    };
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
+                children: "Register"
+            }, void 0, false, {
+                fileName: "src/pages/Register.tsx",
+                lineNumber: 42,
+                columnNumber: 4
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("form", {
+                encType: "multipart/form-data",
+                onSubmit: handleSubmit,
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
+                                children: "Email:"
+                            }, void 0, false, {
+                                fileName: "src/pages/Register.tsx",
+                                lineNumber: 45,
+                                columnNumber: 6
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
+                                type: "email",
+                                value: email,
+                                onChange: (e)=>setEmail(e.target.value),
+                                required: true
+                            }, void 0, false, {
+                                fileName: "src/pages/Register.tsx",
+                                lineNumber: 46,
+                                columnNumber: 6
+                            }, undefined)
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/pages/Register.tsx",
+                        lineNumber: 44,
+                        columnNumber: 5
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
+                                children: "Username:"
+                            }, void 0, false, {
+                                fileName: "src/pages/Register.tsx",
+                                lineNumber: 54,
+                                columnNumber: 6
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
+                                type: "text",
+                                value: username,
+                                onChange: (e)=>setUsername(e.target.value),
+                                required: true
+                            }, void 0, false, {
+                                fileName: "src/pages/Register.tsx",
+                                lineNumber: 55,
+                                columnNumber: 6
+                            }, undefined)
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/pages/Register.tsx",
+                        lineNumber: 53,
+                        columnNumber: 5
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
+                                children: "Password:"
+                            }, void 0, false, {
+                                fileName: "src/pages/Register.tsx",
+                                lineNumber: 63,
+                                columnNumber: 6
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
+                                type: "password",
+                                value: password,
+                                onChange: (e)=>setPassword(e.target.value),
+                                required: true
+                            }, void 0, false, {
+                                fileName: "src/pages/Register.tsx",
+                                lineNumber: 64,
+                                columnNumber: 6
+                            }, undefined)
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/pages/Register.tsx",
+                        lineNumber: 62,
+                        columnNumber: 5
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
+                                children: "Profile Image:"
+                            }, void 0, false, {
+                                fileName: "src/pages/Register.tsx",
+                                lineNumber: 72,
+                                columnNumber: 6
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
+                                type: "file",
+                                accept: "image/*",
+                                name: "profile",
+                                onChange: handleImageChange
+                            }, void 0, false, {
+                                fileName: "src/pages/Register.tsx",
+                                lineNumber: 73,
+                                columnNumber: 6
+                            }, undefined)
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/pages/Register.tsx",
+                        lineNumber: 71,
+                        columnNumber: 5
+                    }, undefined),
+                    imagePreview && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
+                            src: imagePreview,
+                            alt: "Profile Preview",
+                            style: {
+                                width: "100px",
+                                height: "100px"
+                            }
+                        }, void 0, false, {
+                            fileName: "src/pages/Register.tsx",
+                            lineNumber: 82,
+                            columnNumber: 7
+                        }, undefined)
+                    }, void 0, false, {
+                        fileName: "src/pages/Register.tsx",
+                        lineNumber: 81,
+                        columnNumber: 6
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+                        type: "submit",
+                        disabled: registerMutation.isPending,
+                        children: registerMutation.isPending ? "Registering..." : "Register"
+                    }, void 0, false, {
+                        fileName: "src/pages/Register.tsx",
+                        lineNumber: 89,
+                        columnNumber: 5
+                    }, undefined)
+                ]
+            }, void 0, true, {
+                fileName: "src/pages/Register.tsx",
+                lineNumber: 43,
+                columnNumber: 4
+            }, undefined),
+            registerMutation.isError && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                children: registerMutation.error instanceof Error && registerMutation.error.message
+            }, void 0, false, {
+                fileName: "src/pages/Register.tsx",
+                lineNumber: 94,
+                columnNumber: 5
+            }, undefined)
+        ]
+    }, void 0, true, {
+        fileName: "src/pages/Register.tsx",
+        lineNumber: 41,
+        columnNumber: 3
+    }, undefined);
+};
+_s(Register, "iYuZilFlRd8+FQcUgHfavsTdYYo=", false, function() {
+    return [
+        (0, _query.useRegisterMutation)
+    ];
+});
+_c = Register;
+exports.default = Register;
+var _c;
+$RefreshReg$(_c, "Register");
+
+  $parcel$ReactRefreshHelpers$5f6c.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../utils/query":"x89dN","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"j7YWT":[function() {},{}]},["aQL8O","kMAEo","4aBH6"], "4aBH6", "parcelRequire94c2")
 
 //# sourceMappingURL=index.2d3ace14.js.map
