@@ -3,10 +3,11 @@ import {
 	UseQueryResult,
 	useMutation,
 	useQueryClient,
+	QueryClient,
 } from "@tanstack/react-query";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { getApuUrl } from "./url";
-import { useNavigate } from "react-router-dom"; // Changed to react-router-dom for DOM apps
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../useAuth";
 
 interface User {
@@ -34,27 +35,36 @@ interface LoginResponse {
 	user: User;
 }
 
-const fetchData = async (url: string): Promise<any> => {
-	try {
-		const response = await axios.get(getApuUrl(url), {
-			withCredentials: true,
-		});
-		return response.data;
-	} catch (error) {
-		// Use axios.isAxiosError to check error type
-		if (axios.isAxiosError(error) && error.response?.status === 404) {
-			return null;
-		}
-		throw error;
-	}
+export const useFetchData = (url: any) => {
+	const urls = getApuUrl(url);
+
+	return useQuery({
+		queryKey: ["datas"],
+		queryFn: async () => {
+			const response = await axios.get(urls, { withCredentials: true });
+			return response.data;
+		},
+	});
 };
 
-export const useFetchData = (url: string): UseQueryResult<any, Error> => {
-	return useQuery({
-		queryKey: [url],
-		queryFn: () => fetchData(url),
-		retry: false,
-		staleTime: 5 * 60 * 1000, // 5 minutes
+export const postData = (url: any, userData: FormData) => {
+	const urls = getApuUrl(url);
+	const { login } = useAuth();
+	const navigate = useNavigate();
+
+	return useMutation({
+		mutationFn: async (urls: any) => {
+			const { data } = await axios.post(urls, userData, {
+				withCredentials: true,
+			});
+			return data;
+		},
+		onSuccess: (data: any) => {
+			data.user ? login(data.user) : navigate("/fyp");
+		},
+		onError: (error: Error) => {
+			console.error("Post error:", error);
+		},
 	});
 };
 
@@ -62,13 +72,9 @@ const register = async (userData: FormData): Promise<User> => {
 	try {
 		const { data } = await axios.post(getApuUrl("/register"), userData, {
 			withCredentials: true,
-			headers: {
-				"Content-Type": "multipart/form-data",
-			},
 		});
 		return data;
 	} catch (error) {
-		// Use axios.isAxiosError for safety
 		throw axios.isAxiosError(error)
 			? new Error(error.response?.data?.error || "Registration failed")
 			: error;
@@ -82,9 +88,6 @@ const loginUser = async (userData: LoginData): Promise<LoginResponse> => {
 			userData,
 			{
 				withCredentials: true,
-				/* 	headers: {
-					"Content-Type": "application/json",
-				}, */
 			}
 		);
 		return data;
@@ -124,7 +127,6 @@ export const useLogoutMutation = () => {
 		},
 		onError: (error: Error) => {
 			console.error("Logout error:", error);
-			navigate("/account");
 		},
 	});
 };

@@ -45,6 +45,7 @@ export const getUserById = async (req: Request, res: Response) => {
 export const createUser = async (req: Request, res: Response) => {
 	try {
 		const { email, username, password } = req.body;
+		console.log(req.body);
 		const image = req.file?.path || null;
 
 		console.log(req.body);

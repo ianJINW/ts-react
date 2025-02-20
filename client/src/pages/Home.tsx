@@ -8,13 +8,13 @@ const Home: React.FC = () => {
 	}
 
 	return (
-		<>
-			<img src={user?.image} alt={user?.username} />
+		<main className="flex flex-col items-center">
+			<img className="rounded" src={user?.image} alt={user?.username} />
 
 			<main>
 				<p>Hello </p>
 			</main>
-		</>
+		</main>
 	);
 };
 

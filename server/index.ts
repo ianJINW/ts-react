@@ -9,6 +9,7 @@ import "./config/passport";
 import passport from "./config/passport";
 import { createUser, login } from "./controllers/userController";
 import { upload } from "./middleware/multer";
+import path from "path";
 
 dotenv.config();
 const app = express();
@@ -26,7 +27,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(passport.initialize());
-app.use("/uploads", express.static("uploads"));
+app.use("uploads", express.static(path.join(__dirname, "uploads")));
 
 app.use("/api", passport.authenticate("jwt", { session: false }));
 

@@ -57,7 +57,7 @@ const checkFileType = (
 
 // Initialize upload
 const upload = multer({
-	storage: storage,
+	storage: Cloud_storage,
 	limits: { fileSize: 1024 * 1024 * 20 },
 	fileFilter: (req, file, cb) => {
 		checkFileType(file, cb);
@@ -65,7 +65,7 @@ const upload = multer({
 });
 
 const posts = multer({
-	storage: Cloud_storage,
+	storage: postStorage,
 	limits: { fileSize: 1024 * 1024 * 20 },
 	fileFilter: (req, file, cb) => {
 		checkFileType(file, cb);

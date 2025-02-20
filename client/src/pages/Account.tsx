@@ -1,8 +1,6 @@
 import React, { useEffect } from "react";
 import { useFetchData } from "../utils/query";
 import { useAuth } from "../useAuth";
-import { Navigate } from "react-router-dom";
-import useAuthStore from "../store/authstore";
 
 const Account: React.FC = () => {
 	const { user } = useAuth();
@@ -18,14 +16,11 @@ const Account: React.FC = () => {
 		isLoading,
 	} = useFetchData(`/api/users/${user?.id}`);
 
-	const id = useAuthStore((state) => state.id);
-	console.log(id);
-
 	if (isLoading) {
 		return <div>Loading...</div>;
 	}
 
-	if (error) {
+	if (error) { 
 		return <div>Error: {error.message}</div>;
 	}
 
