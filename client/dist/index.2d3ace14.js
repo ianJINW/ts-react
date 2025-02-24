@@ -26390,7 +26390,7 @@ const useFetchData = (url)=>{
     const urls = (0, _url.getApuUrl)(url);
     return (0, _reactQuery.useQuery)({
         queryKey: [
-            "datas"
+            url
         ],
         queryFn: async ()=>{
             const response = await (0, _axiosDefault.default).get(urls, {

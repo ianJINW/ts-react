@@ -39,7 +39,7 @@ export const useFetchData = (url: any) => {
 	const urls = getApuUrl(url);
 
 	return useQuery({
-		queryKey: ["datas"],
+		queryKey: [url],
 		queryFn: async () => {
 			const response = await axios.get(urls, { withCredentials: true });
 			return response.data;
